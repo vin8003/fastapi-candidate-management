@@ -1,0 +1,346 @@
+{
+	"info": {
+		"_postman_id": "df0c03b0-3b75-4cd0-a21d-ef1bd228e974",
+		"name": "Squadio FastAPI Assignment",
+		"description": "Postman collection for FastAPI Candidate Management API",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "1008057",
+		"_collection_link": "https://devs-meddelivery.postman.co/workspace/vineet's-workspace~94338337-2fe4-4f46-8774-ab1e1c3a2eae/collection/1008057-df0c03b0-3b75-4cd0-a21d-ef1bd228e974?action=share&source=collection_link&creator=1008057"
+	},
+	"item": [
+		{
+			"name": "Health Check",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{baseUrl}}/health",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"health"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "User Registration",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"name\": \"John Doe\",\n    \"email\": \"johndoe@example.com\",\n    \"password\": \"password123\"\n}"
+				},
+				"url": {
+					"raw": "{{baseUrl}}/user/register",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"user",
+						"register"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "User Login",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"// Parse the response body to a JSON object",
+							"let response = pm.response.json();",
+							"",
+							"// Check if the response contains the access_token",
+							"if (response.access_token) {",
+							"    // Update the environment variable 'token' with the value of 'access_token'",
+							"    pm.environment.set(\"token\", response.access_token);",
+							"    ",
+							"    console.log(\"Token updated successfully: \", response.access_token);",
+							"} else {",
+							"    console.error(\"Access token not found in the response.\");",
+							"}",
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"email\": \"johndoe@example.com\",\n    \"password\": \"password123\"\n}"
+				},
+				"url": {
+					"raw": "{{baseUrl}}/user/login",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"user",
+						"login"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Create Candidate",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"// Parse the response body as JSON",
+							"let responseData = pm.response.json();",
+							"",
+							"// Check if the 'id' field exists in the response",
+							"if (responseData.id) {",
+							"    // Set the 'candidateId' variable in the Postman environment",
+							"    pm.environment.set(\"candidateId\", responseData.id);",
+							"    console.log(\"candidateId updated to:\", responseData.id);",
+							"} else {",
+							"    console.error(\"id field not found in the response\");",
+							"}",
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					},
+					{
+						"key": "Authorization",
+						"value": "Bearer {{token}}"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"name\": \"Vineet Sharma\",\n    \"email\": \"vin8003@gmail.com\",\n    \"experience\": 8\n}"
+				},
+				"url": {
+					"raw": "{{baseUrl}}/candidate",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"candidate"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Candidate by ID",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer {{token}}"
+					}
+				],
+				"url": {
+					"raw": "{{baseUrl}}/candidate/{{candidateId}}",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"candidate",
+						"{{candidateId}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Update Candidate",
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					},
+					{
+						"key": "Authorization",
+						"value": "Bearer {{token}}"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"experience\": 8\n}"
+				},
+				"url": {
+					"raw": "{{baseUrl}}/candidate/{{candidateId}}",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"candidate",
+						"{{candidateId}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Delete Candidate",
+			"request": {
+				"method": "DELETE",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer {{token}}"
+					}
+				],
+				"url": {
+					"raw": "{{baseUrl}}/candidate/{{candidateId}}",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"candidate",
+						"{{candidateId}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "List All Candidates (Paginated)",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer {{token}}"
+					}
+				],
+				"url": {
+					"raw": "{{baseUrl}}/all-candidates?page=1&size=5",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"all-candidates"
+					],
+					"query": [
+						{
+							"key": "page",
+							"value": "1"
+						},
+						{
+							"key": "size",
+							"value": "5"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Generate CSV Report",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer {{token}}"
+					}
+				],
+				"url": {
+					"raw": "{{baseUrl}}/send-report",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"send-report"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Trigger Error (for Sentry)",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{baseUrl}}/trigger-error",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"trigger-error"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "baseUrl",
+			"value": "http://localhost:8000",
+			"type": "string"
+		},
+		{
+			"key": "token",
+			"value": "",
+			"type": "string"
+		},
+		{
+			"key": "candidateId",
+			"value": "",
+			"type": "string"
+		}
+	]
+}
