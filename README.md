@@ -33,24 +33,7 @@ cd fastapi-candidate-management
 
 ### Setup Environment Variables
 
-Create a .env file in the project root and configure the following environment variables:
-
-JWT_SECRET_KEY="your_secret_key"
-MONGO_URL=mongodb://mongodb:27017/assignment_db
-REDIS_URL=redis://redis:6379
-MAIL_USERNAME=your_email@gmail.com
-MAIL_PASSWORD=your_app_password
-MAIL_FROM=your_email@gmail.com
-MAIL_PORT=587
-MAIL_SERVER=smtp.gmail.com
-MAIL_FROM_NAME="Candidate Management Service"
-MAIL_STARTTLS=True
-MAIL_SSL_TLS=False
-SENTRY_DSN=your_sentry_dsn
-SENTRY_ENVIRONMENT=local
-SENTRY_TRACES_SAMPLE_RATE=0.5
-SENTRY_DEBUG=True
-
+Create a .env file from sample .env_copy file in the project root and configure the environment variables
 
 ### Install Dependencies
 
