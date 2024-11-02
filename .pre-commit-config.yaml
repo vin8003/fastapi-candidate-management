@@ -1,0 +1,27 @@
+repos:
+  - repo: https://github.com/psf/black
+    rev: 23.1.0  # Specify the version of Black
+    hooks:
+      - id: black
+        language_version: python3.9  # Replace with your Python version
+
+  - repo: https://github.com/PyCQA/flake8
+    rev: 6.0.0  # Specify the version of Flake8
+    hooks:
+      - id: flake8
+        args: [--max-line-length=88]
+        language_version: python3.9
+
+  - repo: https://github.com/pre-commit/mirrors-mypy
+    rev: v1.2.0  # Specify the version of MyPy
+    hooks:
+      - id: mypy
+        args: [--ignore-missing-imports]
+        language_version: python3.9
+
+  - repo: https://github.com/pre-commit/pre-commit-hooks
+    rev: v4.4.0  # Specify the version of `pre-commit-hooks`
+    hooks:
+      - id: check-yaml
+      - id: end-of-file-fixer
+      - id: trailing-whitespace
