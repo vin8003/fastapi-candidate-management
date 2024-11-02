@@ -8,6 +8,11 @@ services:
     depends_on:
       - mongodb
       - redis
+    environment:
+      - MONGO_URL=mongodb://mongodb:27017/assignment_db
+      - REDIS_URL=redis://redis:6379
+      - DB_NAME=assignment_db
+    restart: unless-stopped
 
   mongodb:
     image: mongo:latest
@@ -15,11 +20,13 @@ services:
       - "27017:27017"
     volumes:
       - mongo_data:/data/db
+    restart: unless-stopped
 
   redis:
     image: redis:latest
     ports:
       - "6379:6379"
+    restart: unless-stopped
 
   celery_worker:
     build: .
@@ -29,16 +36,12 @@ services:
     depends_on:
       - redis
       - mongodb
+    environment:
+      - MONGO_URL=mongodb://mongodb:27017/assignment_db
+      - REDIS_URL=redis://redis:6379
+      - DB_NAME=assignment_db
 
-  test_runner:
-    build: .
-    env_file:
-      - .env
-    command: poetry run pytest tests/ --maxfail=3 --disable-warnings -v
-    depends_on:
-      - mongodb
-      - redis
-      - fastapi
+    restart: unless-stopped
 
 volumes:
   mongo_data:

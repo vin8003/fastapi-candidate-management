@@ -42,21 +42,16 @@ JWT_ALGORITHM = os.getenv("JWT_ALGORITHM", "HS256")
 JWT_ACCESS_TOKEN_EXPIRE_MINUTES = int(os.getenv("JWT_ACCESS_TOKEN_EXPIRE_MINUTES", 30))
 
 # MongoDB
-MONGO_URL = os.getenv("MONGO_URL", "mongodb://localhost:27017")
+MONGO_URL = os.getenv("MONGO_URL", "mongodb://mongodb:27017")
 TEST_DB_NAME = os.getenv("TEST_DB_NAME", "test_db")
 DB_NAME = os.getenv("DB_NAME", "assignment_db")
 CELERY_RESULT_COLLECTION = os.getenv("CELERY_RESULT_COLLECTION", "celery_results")
 
 # Redis connection string
-REDIS_URL = os.getenv("REDIS_URL", "redis://localhost:6379")
+REDIS_URL = os.getenv("REDIS_URL", "redis://redis:6379")
 
 # Celery broker URL
-CELERY_BROKER_URL = os.getenv("CELERY_BROKER_URL", "redis://localhost:6379/0")
-
-# Celery result backend URL
-CELERY_RESULT_BACKEND = os.getenv(
-    "CELERY_RESULT_BACKEND", "mongodb://localhost:27017/celery_results"
-)
+CELERY_BROKER_URL = os.getenv("CELERY_BROKER_URL", "redis://redis:6379/0")
 
 # Backend URL
 BACKEND_URL = os.getenv("BACKEND_URL", "http://localhost:8000")
